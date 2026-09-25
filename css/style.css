@@ -1,1 +1,246 @@
-/* Style strony Sztuka Lasu */
+/* =========================================================
+   Sztuka Lasu — style strony
+   ========================================================= */
+
+/* ---------------------------------------------------------
+   1. ZMIENNE KOLORÓW
+
+   Zmienna CSS to nazwa dla wartości, np. --tlo zamiast #13110f.
+   Dzięki temu kolor zapisujemy w jednym miejscu, a używamy w wielu.
+   Zmiana motywu = podmiana wartości zmiennych, nic więcej.
+
+   Motyw nocny jest domyślny — opisany w :root.
+   --------------------------------------------------------- */
+
+:root {
+  /* Motyw nocny */
+  --tlo:            #13110f;
+  --tlo-drugie:     #1b1815;
+  --tekst:          #efe7dc;
+  --tekst-przygaszony: #b5a896;
+  --linie:          #2a2520;
+  --akcent:         #c8a25a;   /* mosiądz */
+
+  /* Informuje przeglądarkę, że strona jest ciemna —
+     dopasuje m.in. paski przewijania i pola formularzy. */
+  color-scheme: dark;
+
+  /* Fonty */
+  --font-naglowki: 'Cormorant Garamond', Georgia, serif;
+  --font-tekst:    'Manrope', system-ui, -apple-system, sans-serif;
+
+  /* Odstępy — wspólna skala, żeby układ był spójny */
+  --odstep-s:  0.5rem;
+  --odstep-m:  1rem;
+  --odstep-l:  2rem;
+  --odstep-xl: 4rem;
+
+  --szerokosc-strony: 1200px;
+}
+
+/* Motyw dzienny — wybrany ręcznie przyciskiem */
+:root[data-theme="light"] {
+  --tlo:            #e8e2d8;
+  --tlo-drugie:     #ded6ca;
+  --tekst:          #1f1a15;
+  --tekst-przygaszony: #5b5046;
+  --linie:          #cfc6b9;
+  --akcent:         #6f521f;
+
+  color-scheme: light;
+}
+
+/* Ten sam motyw dzienny, ale wybrany automatycznie przez system
+   użytkownika. Zabezpieczenie na wypadek, gdyby JavaScript się nie
+   wykonał — wtedy atrybut data-theme w ogóle nie zostanie ustawiony
+   i strona i tak pokaże właściwe kolory. */
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    --tlo:            #e8e2d8;
+    --tlo-drugie:     #ded6ca;
+    --tekst:          #1f1a15;
+    --tekst-przygaszony: #5b5046;
+    --linie:          #cfc6b9;
+    --akcent:         #6f521f;
+
+    color-scheme: light;
+  }
+}
+
+/* ---------------------------------------------------------
+   2. RESET I PODSTAWY
+   --------------------------------------------------------- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;   /* szerokość elementu liczy się razem z ramką i paddingiem */
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background-color: var(--tlo);
+  color: var(--tekst);
+  font-family: var(--font-tekst);
+  font-size: 1rem;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+
+  /* Łagodne przejście przy zmianie motywu */
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-naglowki);
+  font-weight: 400;
+  line-height: 1.2;
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Wyraźna obwódka przy nawigacji klawiaturą (klawisz Tab) —
+   ważne dla dostępności, nie usuwamy jej. */
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--akcent);
+  outline-offset: 4px;
+}
+
+/* ---------------------------------------------------------
+   3. NAGŁÓWEK STRONY
+   --------------------------------------------------------- */
+
+.naglowek {
+  position: sticky;          /* przykleja się do góry przy przewijaniu */
+  top: 0;
+  z-index: 10;
+  background-color: var(--tlo);
+  border-bottom: 1px solid var(--linie);
+  transition: background-color 0.4s ease, border-color 0.4s ease;
+}
+
+.naglowek__wnetrze {
+  max-width: var(--szerokosc-strony);
+  margin: 0 auto;
+  padding: var(--odstep-m) var(--odstep-l);
+
+  display: flex;             /* logo | menu | przycisk w jednej linii */
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--odstep-l);
+}
+
+/* Logo tekstowe */
+.logo {
+  font-family: var(--font-naglowki);
+  font-size: 1.6rem;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+}
+
+/* Menu */
+.menu ul {
+  list-style: none;          /* bez kropek */
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: var(--odstep-l);
+}
+
+.menu a {
+  font-size: 0.78rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--tekst-przygaszony);
+  padding-bottom: 2px;
+  border-bottom: 1px solid transparent;
+  transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+.menu a:hover {
+  color: var(--tekst);
+  border-bottom-color: var(--akcent);
+}
+
+/* ---------------------------------------------------------
+   4. PRZYCISK PRZEŁĄCZANIA MOTYWU
+   --------------------------------------------------------- */
+
+.przelacznik-motywu {
+  /* Kasujemy domyślny wygląd przycisku przeglądarki */
+  background: none;
+  border: 1px solid var(--linie);
+  border-radius: 50%;
+  padding: 0;
+
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;            /* nie kurczy się, gdy brakuje miejsca */
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  color: var(--tekst-przygaszony);
+  cursor: pointer;
+  transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+.przelacznik-motywu:hover {
+  color: var(--akcent);
+  border-color: var(--akcent);
+}
+
+.przelacznik-motywu svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* Pokazujemy ikonę tego motywu, który użytkownik WŁĄCZY po kliknięciu.
+   Motyw nocny (domyślny) → słońce. Motyw dzienny → księżyc. */
+.ikona-ksiezyc { display: none; }
+.ikona-slonce  { display: block; }
+
+:root[data-theme="light"] .ikona-slonce  { display: none; }
+:root[data-theme="light"] .ikona-ksiezyc { display: block; }
+
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) .ikona-slonce  { display: none; }
+  :root:not([data-theme="dark"]) .ikona-ksiezyc { display: block; }
+}
+
+/* ---------------------------------------------------------
+   5. TELEFONY
+   --------------------------------------------------------- */
+
+@media (max-width: 720px) {
+  .naglowek__wnetrze {
+    padding: var(--odstep-m);
+    flex-wrap: wrap;         /* menu przechodzi do nowej linii */
+    gap: var(--odstep-m);
+  }
+
+  .logo {
+    font-size: 1.35rem;
+  }
+
+  .menu {
+    order: 3;                /* menu ląduje pod logo i przyciskiem */
+    width: 100%;
+  }
+
+  .menu ul {
+    gap: var(--odstep-m);
+    flex-wrap: wrap;
+  }
+
+  .menu a {
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+  }
+}

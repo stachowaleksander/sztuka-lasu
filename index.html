@@ -3,12 +3,92 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sztuka Lasu</title>
+  <title>Sztuka Lasu — rzeźby w drewnie</title>
+  <meta name="description" content="Wirtualna galeria rzeźb w drewnie. Każda praca powstaje z gałęzi i odłamków zebranych w lesie — z drewna, które dostaje drugie życie.">
+
+  <!--
+    Skrypt ustawiający motyw MUSI stać tutaj, w <head>, przed stylami
+    i przed treścią strony. Przeglądarka wykonuje go zanim cokolwiek
+    narysuje, więc strona od razu pojawia się w poprawnych kolorach.
+    Gdyby stał na końcu <body>, użytkownik zobaczyłby przez ułamek
+    sekundy zły motyw ("mignięcie").
+  -->
+  <script>
+    (function () {
+      try {
+        var zapisany = localStorage.getItem('motyw');
+        var systemowyCiemny = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        // Wybór zapisany przez użytkownika ma pierwszeństwo nad ustawieniem systemu.
+        var motyw = zapisany || (systemowyCiemny ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', motyw);
+      } catch (blad) {
+        // localStorage bywa zablokowany (tryb prywatny) — wtedy zostają
+        // kolory domyślne ze stylów i strona nadal działa.
+      }
+    })();
+  </script>
+
+  <!-- Fonty z Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Manrope:wght@300;400;500&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-  <!-- Tutaj powstanie treść strony -->
+  <header class="naglowek">
+    <div class="naglowek__wnetrze">
+
+      <a class="logo" href="/">Sztuka Lasu</a>
+
+      <!-- <nav> mówi czytnikom ekranu, że to nawigacja po stronie.
+           aria-label rozróżnia ją od innych nawigacji w przyszłości. -->
+      <nav class="menu" aria-label="Menu główne">
+        <ul>
+          <li><a href="#wystawa">Wystawa</a></li>
+          <li><a href="#metryka-drewna">Metryka drewna</a></li>
+          <li><a href="#artystka">Artystka</a></li>
+          <li><a href="#zamowienia">Zamówienia</a></li>
+        </ul>
+      </nav>
+
+      <!--
+        type="button" — bez tego przycisk w formularzu próbowałby go wysłać.
+        aria-label — przycisk zawiera tylko ikonę, więc czytnik ekranu
+        nie miałby czego przeczytać. JavaScript aktualizuje tę etykietę
+        przy każdej zmianie motywu.
+        aria-hidden przy ikonach — to dekoracja, treść niesie aria-label.
+      -->
+      <button
+        class="przelacznik-motywu"
+        type="button"
+        id="przelacznik-motywu"
+        aria-label="Włącz motyw dzienny">
+
+        <!-- Słońce: widoczne w motywie nocnym -->
+        <svg class="ikona-slonce" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+             aria-hidden="true">
+          <circle cx="12" cy="12" r="4.5"/>
+          <path d="M12 1.5v2.5M12 20v2.5M3.2 3.2l1.8 1.8M19 19l1.8 1.8M1.5 12h2.5M20 12h2.5M3.2 20.8l1.8-1.8M19 5l1.8-1.8"/>
+        </svg>
+
+        <!-- Księżyc: widoczny w motywie dziennym -->
+        <svg class="ikona-ksiezyc" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+             stroke-linejoin="round" aria-hidden="true">
+          <path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11z"/>
+        </svg>
+      </button>
+
+    </div>
+  </header>
+
+  <main>
+    <!-- Tutaj powstaną kolejne sekcje: wystawa, metryka drewna,
+         artystka, zamówienia. -->
+  </main>
 
   <script src="js/main.js"></script>
 </body>

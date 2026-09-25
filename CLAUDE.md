@@ -41,6 +41,67 @@ js/main.js        interakcje
 images/           zdjęcia rzeźb
 ```
 
+## Decyzje projektowe
+
+### Motywy kolorystyczne
+
+Dwa motywy przełączane atrybutem `data-theme` na `<html>`:
+
+| Rola             | nocny (`dark`) | dzienny (`light`) |
+|------------------|----------------|-------------------|
+| tło              | `#13110f`      | `#e8e2d8`         |
+| tło drugie       | `#1b1815`      | `#ded6ca`         |
+| tekst            | `#efe7dc`      | `#1f1a15`         |
+| tekst przygaszony| `#b5a896`      | `#5b5046`         |
+| linie            | `#2a2520`      | `#cfc6b9`         |
+| akcent (mosiądz) | `#c8a25a`      | `#6f521f`         |
+
+- Wartości atrybutu to `dark` / `light` (a nie `nocny` / `dzienny`), żeby
+  pasowały do nazewnictwa `prefers-color-scheme` w przeglądarkach.
+- Kolory żyją wyłącznie jako zmienne CSS w `css/style.css`
+  (`--tlo`, `--tekst`, `--akcent` itd.). **Nie wpisywać kolorów na sztywno
+  w regułach CSS** — zepsułoby to przełączanie motywu.
+- Motyw nocny jest domyślny (`:root`). Motyw dzienny jest zdefiniowany
+  dwa razy: dla `:root[data-theme="light"]` (wybór użytkownika) oraz
+  w `@media (prefers-color-scheme: light)` jako zabezpieczenie na wypadek
+  niedziałającego JavaScriptu.
+
+### Wybór motywu
+
+Kolejność decydowania: **wybór zapisany w `localStorage`** (klucz `motyw`),
+a przy pierwszej wizycie **ustawienie systemowe** `prefers-color-scheme`.
+
+Mały skrypt w `<head>` pliku `index.html` ustawia motyw przed
+wyrenderowaniem strony — dzięki temu nie widać mignięcia złymi kolorami.
+Ten skrypt musi zostać inline w `<head>`; przeniesienie go do pliku
+zewnętrznego przywróci mignięcie. `js/main.js` obsługuje tylko kliknięcie
+przycisku.
+
+### Typografia
+
+- Nagłówki i logo: **Cormorant Garamond** (szeryfowy, klimat galerii).
+- Tekst i menu: **Manrope** (bezszeryfowy, czytelny).
+- Ładowane z Google Fonts w `<head>`, dostępne przez zmienne
+  `--font-naglowki` i `--font-tekst`.
+
+### Nazewnictwo klas CSS
+
+Klasy po polsku, w konwencji blok i element: `.naglowek`,
+`.naglowek__wnetrze`, `.menu`, `.przelacznik-motywu`. Podwójne
+podkreślenie `__` oznacza element należący do bloku.
+
+### Dostępność
+
+- Przycisk motywu ma `aria-label` aktualizowany przez JavaScript
+  (opisuje, co się stanie po kliknięciu). Ikony SVG mają `aria-hidden="true"`.
+- Obwódki `:focus-visible` (widoczne przy nawigacji klawiszem Tab)
+  zostają — nie usuwać.
+
+### Sekcje strony i kotwice
+
+`#wystawa`, `#metryka-drewna`, `#artystka`, `#zamowienia` — linki w menu
+już na nie wskazują, same sekcje powstaną później.
+
 ## Jak ze mną pracować
 
 Właściciel projektu jest **początkującym** w programowaniu webowym.
