@@ -244,3 +244,197 @@ button:focus-visible {
     letter-spacing: 0.12em;
   }
 }
+
+/* ---------------------------------------------------------
+   6. PRZYCISKI
+
+   Jedna klasa .przycisk daje kształt i typografię,
+   a klasa-wariant (--pelny / --obramowany) tylko kolory.
+   --------------------------------------------------------- */
+
+.przycisk {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0.95rem 2.1rem;
+  border: 1px solid transparent;
+
+  font-size: 0.76rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  white-space: nowrap;
+
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Wypełniony kolorem akcentu.
+   Tekst w kolorze tła (var(--tlo)) działa w obu motywach:
+   ciemny napis na złocie w nocy, jasny na brązie w dzień. */
+.przycisk--pelny {
+  background-color: var(--akcent);
+  color: var(--tlo);
+}
+
+.przycisk--pelny:hover {
+  background-color: transparent;
+  color: var(--akcent);
+  border-color: var(--akcent);
+}
+
+.przycisk--obramowany {
+  background-color: transparent;
+  color: var(--tekst);
+  border-color: var(--linie);
+}
+
+.przycisk--obramowany:hover {
+  color: var(--akcent);
+  border-color: var(--akcent);
+}
+
+/* ---------------------------------------------------------
+   7. HERO — pierwszy ekran
+   --------------------------------------------------------- */
+
+.hero {
+  padding-top: clamp(3rem, 7vw, 6rem);
+  padding-bottom: clamp(4rem, 9vw, 8rem);
+}
+
+.hero__wnetrze {
+  max-width: var(--szerokosc-strony);
+  margin: 0 auto;
+  padding: 0 var(--odstep-l);
+
+  /* grid = siatka. Poniżej: dwie kolumny równej szerokości.
+     1fr znaczy "jedna część dostępnego miejsca". */
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(2rem, 5vw, 4.5rem);
+  align-items: center;
+}
+
+.hero__etykieta {
+  margin: 0 0 var(--odstep-l);
+  color: var(--akcent);
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+/* clamp(minimum, wartość elastyczna, maksimum) —
+   tytuł skaluje się płynnie z szerokością okna (7vw = 7% szerokości),
+   ale nigdy nie zejdzie poniżej 2.6rem ani nie przekroczy 5.5rem.
+   Dzięki temu nie trzeba osobno ustawiać rozmiaru dla telefonu. */
+.hero__tytul {
+  margin: 0 0 var(--odstep-l);
+  font-size: clamp(2.6rem, 7vw, 5.5rem);
+  font-weight: 300;
+  letter-spacing: 0.01em;
+}
+
+.hero__opis {
+  margin: 0 0 calc(var(--odstep-l) * 1.25);
+  max-width: 46ch;            /* ok. 46 znaków w wierszu — długość wygodna do czytania */
+  color: var(--tekst-przygaszony);
+  font-size: 1.05rem;
+  font-weight: 300;
+}
+
+.hero__przyciski {
+  display: flex;
+  gap: var(--odstep-m);
+  flex-wrap: wrap;            /* na wąskim ekranie drugi przycisk spadnie niżej */
+}
+
+/* --- Zdjęcie pracy z podpisem --- */
+
+.praca {
+  margin: 0;                  /* przeglądarka domyślnie dodaje marginesy do <figure> */
+}
+
+.praca img {
+  display: block;
+  width: 100%;
+  height: auto;
+
+  /* Stała ramka 3:4 dla obu zdjęć — bez tego układ strony
+     podskakiwałby przy zmianie motywu, bo zdjęcia mają
+     nieco inne proporcje. object-fit: cover wypełnia ramkę
+     i przycina nadmiar zamiast zniekształcać pracę. */
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+}
+
+.praca figcaption {
+  margin-top: var(--odstep-m);
+  color: var(--tekst-przygaszony);
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+}
+
+/* <cite> to znacznik tytułu dzieła. Przeglądarka sama daje mu
+   kursywę, my dokładamy krój nagłówkowy. */
+.praca cite {
+  color: var(--tekst);
+  font-family: var(--font-naglowki);
+  font-size: 1.15rem;
+  font-style: italic;
+}
+
+/* --- Zamiana zdjęcia wraz z motywem ---
+
+   W HTML są obie prace. Tutaj decydujemy, którą widać.
+   Domyślnie (motyw nocny) widoczna jest praca nocna. */
+
+.hero__praca--dzien { display: none; }
+.hero__praca--noc   { display: block; }
+
+:root[data-theme="light"] .hero__praca--noc   { display: none; }
+:root[data-theme="light"] .hero__praca--dzien { display: block; }
+
+/* Zabezpieczenie, gdyby JavaScript nie ustawił data-theme */
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) .hero__praca--noc   { display: none; }
+  :root:not([data-theme="dark"]) .hero__praca--dzien { display: block; }
+}
+
+/* --- Hero na telefonie --- */
+
+@media (max-width: 768px) {
+  .hero {
+    padding-top: var(--odstep-l);
+  }
+
+  .hero__wnetrze {
+    padding-left: var(--odstep-m);
+    padding-right: var(--odstep-m);
+
+    grid-template-columns: 1fr;   /* jedna kolumna — bloki jeden pod drugim */
+    gap: var(--odstep-l);
+  }
+
+  /* order: -1 przesuwa zdjęcie przed tekst.
+     Zmienia tylko kolejność wyświetlania, nie ruszając kodu HTML. */
+  .hero__obraz {
+    order: -1;
+  }
+
+  .hero__etykieta {
+    margin-bottom: var(--odstep-m);
+  }
+
+  .hero__opis {
+    margin-bottom: var(--odstep-l);
+  }
+
+  .praca img {
+    aspect-ratio: 4 / 5;          /* niższy kadr, żeby zdjęcie nie zajęło całego ekranu */
+  }
+
+  .hero__przyciski .przycisk {
+    flex: 1 1 100%;               /* przyciski na pełną szerokość, jeden pod drugim */
+  }
+}

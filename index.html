@@ -31,7 +31,7 @@
   <!-- Fonty z Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Manrope:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400;1,500&family=Manrope:wght@300;400;500&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="css/style.css">
 </head>
@@ -86,6 +86,66 @@
   </header>
 
   <main>
+
+    <!-- =====================================================
+         HERO — pierwszy ekran
+         ===================================================== -->
+    <section class="hero">
+      <div class="hero__wnetrze">
+
+        <!-- Kolumna lewa: tekst -->
+        <div class="hero__tekst">
+          <p class="hero__etykieta">Rzeźba w drewnie · prace unikatowe</p>
+
+          <h1 class="hero__tytul">Drugie życie drewna</h1>
+
+          <p class="hero__opis">
+            Rzeźby z odłamków i gałęzi, które las spisał na stratę.
+            Każda praca jest jedyna, bo jedyny był kawałek drewna,
+            z którego powstała.
+          </p>
+
+          <div class="hero__przyciski">
+            <a class="przycisk przycisk--pelny" href="#wystawa">Wejdź na wystawę</a>
+            <a class="przycisk przycisk--obramowany" href="#zamowienia">Zamów rzeźbę</a>
+          </div>
+        </div>
+
+        <!-- Kolumna prawa: zdjęcie zależne od motywu.
+
+             W kodzie są OBIE prace. CSS pokazuje tę pasującą do
+             motywu, a drugą chowa przez display: none. Element
+             ukryty w ten sposób znika też dla czytników ekranu,
+             więc osoba niewidoma nie usłyszy obu podpisów naraz. -->
+        <div class="hero__obraz">
+
+          <!-- Motyw nocny -->
+          <figure class="praca hero__praca hero__praca--noc">
+            <img
+              src="images/twarze-i-formy/duze/twarz-z-mosieznym-okiem.jpg"
+              width="1018" height="1467"
+              alt="Rzeźbiona w drewnie twarz zawieszona na ciemnej ceglanej ścianie. W miejscu oka osadzony okrągły mosiężny element, powierzchnia zachowuje naturalne pęknięcia, sęki i słoje drewna.">
+            <figcaption>
+              <cite>Twarz z mosiężnym okiem</cite> · cykl Twarze i formy
+            </figcaption>
+          </figure>
+
+          <!-- Motyw dzienny -->
+          <figure class="praca hero__praca hero__praca--dzien">
+            <img
+              src="images/zloto-lasu/duze/lotosy.jpg"
+              width="1086" height="1448"
+              alt="Rzeźba dwóch kwiatów lotosu na drewnianych łodygach wyrastających z korzeni. Górny kwiat ma srebrzone płatki, dolny złocone. Praca stoi na czarnej podstawie, na jasnym cokole.">
+            <figcaption>
+              <cite>Lotosy</cite> · cykl Złoto lasu
+            </figcaption>
+          </figure>
+
+        </div>
+
+      </div>
+    </section>
+
     <!-- Tutaj powstaną kolejne sekcje: wystawa, metryka drewna,
          artystka, zamówienia. -->
   </main>

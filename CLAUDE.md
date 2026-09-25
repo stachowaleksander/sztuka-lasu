@@ -102,6 +102,49 @@ podkreślenie `__` oznacza element należący do bloku.
 `#wystawa`, `#metryka-drewna`, `#artystka`, `#zamowienia` — linki w menu
 już na nie wskazują, same sekcje powstaną później.
 
+### Zdjęcia zależne od motywu
+
+Wzorzec: w HTML stoją **obie** wersje (`<figure>` z własnym zdjęciem,
+opisem `alt` i podpisem), a CSS chowa niepasującą przez `display: none`
+w regułach zależnych od `data-theme`. Bez dodatkowego JavaScriptu.
+
+Dlaczego tak, a nie podmiana `src` skryptem: podpis i `alt` też się
+zmieniają, więc muszą być zwykłym tekstem w HTML — inaczej czytniki
+ekranu i wyszukiwarki ich nie zobaczą. `display: none` usuwa ukrytą
+figurę również z drzewa dostępności, więc nie ma podwójnych odczytów.
+
+Koszt: przeglądarka pobiera oba zdjęcia. Przy dwóch pracach to do
+przyjęcia; gdyby wzorzec trafił w wiele miejsc, trzeba to przemyśleć.
+
+### Proporcje zdjęć
+
+`.praca img` ma stałą ramkę `aspect-ratio: 3 / 4` (na telefonie `4 / 5`)
+i `object-fit: cover`. Powód: zdjęcia prac mają różne proporcje, a bez
+stałej ramki układ strony podskakuje przy zmianie motywu. Skutek uboczny
+— lekkie przycięcie kadru.
+
+### Opisy alt
+
+Piszemy je po obejrzeniu zdjęcia, opisując **co widać na rzeźbie**
+(materiał, forma, detal, tło) — nie powtarzamy tytułu z podpisu,
+bo czytnik ekranu przeczytałby go dwa razy.
+
+### Punkty łamania układu (breakpointy)
+
+- `max-width: 768px` — hero przechodzi na jedną kolumnę, zdjęcie ląduje
+  nad tekstem (`order: -1`).
+- `max-width: 720px` — nagłówek przenosi menu do osobnego wiersza.
+
+Rozmiary tekstu skalują się przez `clamp()`, więc w większości wypadków
+nie trzeba dopisywać nowych breakpointów.
+
+### Katalog prac
+
+`images/prace.json` to źródło danych o pracach (tytuł roboczy, cykl,
+ścieżki do zdjęcia i miniatury). Pola metryki drewna są na razie puste —
+do uzupełnienia razem z mamą. Foldery: `duze/` (do 1600 px) i
+`miniatury/` (do 600 px) w katalogu każdego cyklu.
+
 ## Jak ze mną pracować
 
 Właściciel projektu jest **początkującym** w programowaniu webowym.
