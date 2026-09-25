@@ -47,7 +47,7 @@
       <nav class="menu" aria-label="Menu główne">
         <ul>
           <li><a href="#wystawa">Wystawa</a></li>
-          <li><a href="#metryka-drewna">Metryka drewna</a></li>
+          <li><a href="#metryka">Metryka drewna</a></li>
           <li><a href="#artystka">Artystka</a></li>
           <li><a href="#zamowienia">Zamówienia</a></li>
         </ul>
@@ -156,7 +156,7 @@
         <header class="sekcja-naglowek">
           <div>
             <p class="etykieta">Wystawa</p>
-            <h2 class="sekcja-naglowek__tytul">Cztery sale</h2>
+            <h2 class="tytul-sekcji">Cztery sale</h2>
           </div>
           <p class="sekcja-naglowek__opis">
             Prace ułożone w cykle, tak jak powstawały: z tego samego lasu,
@@ -227,8 +227,63 @@
       </div>
     </section>
 
-    <!-- Tutaj powstaną kolejne sekcje: metryka drewna,
-         artystka, zamówienia. -->
+
+    <!-- =====================================================
+         METRYKA DREWNA
+         ===================================================== -->
+    <section class="metryka-sekcja" id="metryka">
+      <div class="metryka-sekcja__wnetrze">
+
+        <!-- Kolumna lewa: zdjęcie w pełnym kadrze, bez przycinania -->
+        <div class="metryka-sekcja__obraz">
+          <img
+            src="images/zloto-lasu/duze/kwiat-z-kory.jpg"
+            width="1086" height="1448" loading="lazy"
+            alt="Kwiat złożony z płatków sosnowej kory, ułożonych warstwami wokół złoconego, pofalowanego środka z metalu. Praca wisi na skórzanym rzemyku na jasnej ścianie.">
+        </div>
+
+        <!-- Kolumna prawa: opis i przykładowa metryka -->
+        <div class="metryka-sekcja__tekst">
+          <p class="etykieta">Metryka drewna</p>
+
+          <h2 class="tytul-sekcji">
+            Każda rzeźba ma historię, zanim trafi do pracowni
+          </h2>
+
+          <p class="metryka-sekcja__opis">
+            Do każdej pracy dołączamy metrykę: skąd pochodzi fragment drewna
+            i czym był, zanim stał się rzeźbą.
+          </p>
+
+          <!-- <dl> = lista definicji. Każde <dt> to nazwa (etykieta),
+               a następujące po nim <dd> to jej wartość. Powiązanie
+               etykiety z wartością jest tu zapisane w samym HTML,
+               nie tylko w wyglądzie. -->
+          <dl class="metryka">
+            <dt>Praca</dt>
+            <dd>Kwiat z kory</dd>
+
+            <dt>Gatunek</dt>
+            <dd class="do-uzupelnienia">[GATUNEK DREWNA]</dd>
+
+            <dt>Znaleziono</dt>
+            <dd class="do-uzupelnienia">[MIEJSCE I ROK]</dd>
+
+            <dt>Czym było</dt>
+            <dd class="do-uzupelnienia">[NP. OPADŁA KORA]</dd>
+
+            <dt>Wymiary</dt>
+            <dd class="do-uzupelnienia">[WYMIARY]</dd>
+
+            <dt>Dostępność</dt>
+            <dd class="do-uzupelnienia">[DOSTĘPNA / W KOLEKCJI]</dd>
+          </dl>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Tutaj powstaną kolejne sekcje: artystka, zamówienia. -->
   </main>
 
   <script src="js/main.js"></script>

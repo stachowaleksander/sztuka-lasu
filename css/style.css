@@ -465,7 +465,7 @@ button:focus-visible {
   margin-bottom: clamp(2.5rem, 5vw, 4.5rem);
 }
 
-.sekcja-naglowek__tytul {
+.tytul-sekcji {
   margin: 0;
   font-size: clamp(2.2rem, 4.5vw, 3.4rem);
   font-weight: 300;
@@ -579,5 +579,138 @@ button:focus-visible {
   .sale {
     grid-template-columns: 1fr;
     gap: calc(var(--odstep-l) * 1.25);
+  }
+}
+
+/* ---------------------------------------------------------
+   9. METRYKA DREWNA
+   --------------------------------------------------------- */
+
+/* Inne tło niż sąsiednie sekcje — samo w sobie oddziela je
+   od reszty strony, więc nie dokładamy tu linii. */
+.metryka-sekcja {
+  background-color: var(--tlo-drugie);
+  padding: clamp(3rem, 8vw, 7rem) 0;
+  transition: background-color 0.4s ease;
+}
+
+.metryka-sekcja__wnetrze {
+  max-width: var(--szerokosc-strony);
+  margin: 0 auto;
+  padding: 0 var(--odstep-l);
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(2rem, 5vw, 4.5rem);
+  align-items: center;
+}
+
+/* Zdjęcie w całości, bez przycinania — zachowuje własne proporcje.
+   max-height pilnuje, żeby na niskim ekranie nie urosło ponad miarę;
+   object-fit: contain gwarantuje, że przy tym limicie praca zostanie
+   pomniejszona, a nie zniekształcona. */
+.metryka-sekcja__obraz img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 78vh;
+  object-fit: contain;
+}
+
+.metryka-sekcja__opis {
+  margin: 0 0 calc(var(--odstep-l) * 1.25);
+  max-width: 46ch;
+  color: var(--tekst-przygaszony);
+  font-weight: 300;
+}
+
+.metryka-sekcja .tytul-sekcji {
+  margin: 0 0 var(--odstep-m);
+  max-width: 18ch;           /* łamie tytuł na 2–3 wiersze, jak w makiecie */
+}
+
+/* --- Lista definicji --- */
+
+.metryka {
+  margin: 0;
+
+  /* Dwie kolumny: etykieta dopasowana do najdłuższej nazwy (auto),
+     wartość zajmuje resztę (1fr). Kolejne pary <dt>/<dd> same
+     układają się w następnych wierszach. */
+  display: grid;
+  grid-template-columns: auto 1fr;
+  column-gap: var(--odstep-l);
+}
+
+.metryka dt,
+.metryka dd {
+  padding: 0.85rem 0;
+  border-bottom: 1px solid var(--linie);
+}
+
+.metryka dt {
+  display: flex;
+  align-items: center;       /* etykieta wyśrodkowana względem wyższej wartości */
+
+  color: var(--tekst-przygaszony);
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.metryka dd {
+  margin: 0;                 /* przeglądarka domyślnie wcina <dd> */
+  color: var(--tekst);
+  font-family: var(--font-naglowki);
+  font-size: 1.25rem;
+}
+
+/* Wartości do uzupełnienia razem z mamą — przygaszone, żeby było
+   widać na pierwszy rzut oka, że to jeszcze nie są prawdziwe dane.
+   Przy publikacji: wyszukać "do-uzupelnienia" w index.html. */
+.do-uzupelnienia {
+  color: var(--tekst-przygaszony);
+  font-style: italic;
+}
+
+/* --- Metryka na telefonie --- */
+
+@media (max-width: 768px) {
+  .metryka-sekcja__wnetrze {
+    padding-left: var(--odstep-m);
+    padding-right: var(--odstep-m);
+
+    grid-template-columns: 1fr;
+    gap: var(--odstep-l);
+  }
+
+  /* Zdjęcie nad tekstem — w HTML stoi pierwsze, więc wystarczy,
+     że kolumny zwinęły się do jednej. */
+  .metryka-sekcja__obraz img {
+    max-height: 60vh;
+    margin: 0 auto;
+  }
+
+  .metryka-sekcja .tytul-sekcji {
+    max-width: none;
+  }
+
+  /* Jedna kolumna: etykieta nad wartością.
+     Linia zostaje tylko pod wartością, czyli między parami. */
+  .metryka {
+    grid-template-columns: 1fr;
+  }
+
+  .metryka dt {
+    padding: 0 0 0.15rem;
+    border-bottom: none;
+  }
+
+  .metryka dd {
+    padding: 0 0 0.85rem;
+  }
+
+  .metryka dt:not(:first-of-type) {
+    padding-top: 0.85rem;
   }
 }

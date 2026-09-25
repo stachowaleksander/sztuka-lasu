@@ -99,8 +99,27 @@ podkreślenie `__` oznacza element należący do bloku.
 
 ### Sekcje strony i kotwice
 
-`#wystawa`, `#metryka-drewna`, `#artystka`, `#zamowienia` — linki w menu
-już na nie wskazują, same sekcje powstaną później.
+| Kotwica | Stan |
+|---|---|
+| `#wystawa` | gotowa — cztery sale |
+| `#metryka` | gotowa — metryka drewna |
+| `#artystka` | do zrobienia |
+| `#zamowienia` | do zrobienia |
+
+Menu w nagłówku prowadzi do tych kotwic. **Przy dodawaniu sekcji
+sprawdzić, czy `id` zgadza się z `href` w menu** — pierwotnie menu
+linkowało do `#metryka-drewna`, a sekcja dostała `id="metryka"`.
+
+### Wspólne klasy
+
+Style powtarzające się w wielu sekcjach mają własne, krótkie nazwy
+zamiast być kopiowane:
+
+- `.etykieta` — mała etykieta wersalikami w kolorze akcentu.
+- `.tytul-sekcji` — `h2` sekcji (Cormorant Garamond, `clamp()`).
+- `.przycisk` + `.przycisk--pelny` / `.przycisk--obramowany`.
+- `.praca` — zdjęcie pracy z podpisem.
+- `.do-uzupelnienia` — tymczasowa wartość w nawiasach kwadratowych.
 
 ### Zdjęcia zależne od motywu
 
@@ -203,6 +222,13 @@ wczytywania.
 - **Podstrony sal.** Karty w sekcji `#wystawa` prowadzą na razie do `"#"`.
   Do zrobienia: osobne strony cykli (Twarze i formy, Skrzydła, Sacrum,
   Złoto lasu) i podmiana adresów w `index.html`.
+- **Metryka w sekcji `#metryka` ma wartości zastępcze.** W `index.html`
+  pięć pozycji listy (`Gatunek`, `Znaleziono`, `Czym było`, `Wymiary`,
+  `Dostępność`) ma wpisane nawiasy kwadratowe, np. `[GATUNEK DREWNA]`,
+  z klasą `do-uzupelnienia`. **Strona nie może trafić do publikacji
+  z nawiasami.** Przed wypuszczeniem: wyszukać `do-uzupelnienia`
+  w `index.html`, wpisać dane od mamy i usunąć tę klasę (a na koniec
+  regułę `.do-uzupelnienia` ze `style.css`).
 - **Metryka drewna.** Pola `gatunek_drewna`, `skad_drewno`, `wymiary`,
   `rok`, `dostepnosc`, `opis` w `images/prace.json` są puste —
   do uzupełnienia z mamą.
