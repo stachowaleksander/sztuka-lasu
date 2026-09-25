@@ -118,10 +118,38 @@ przyjęcia; gdyby wzorzec trafił w wiele miejsc, trzeba to przemyśleć.
 
 ### Proporcje zdjęć
 
-`.praca img` ma stałą ramkę `aspect-ratio: 3 / 4` (na telefonie `4 / 5`)
-i `object-fit: cover`. Powód: zdjęcia prac mają różne proporcje, a bez
-stałej ramki układ strony podskakuje przy zmianie motywu. Skutek uboczny
-— lekkie przycięcie kadru.
+Dwie różne ramki, obie z `object-fit: cover`:
+
+- **hero** (`.praca img`) — `3 / 4`, na telefonie `4 / 5`.
+- **karty sal** (`.sala__kadr img`) — `4 / 5` na wszystkich szerokościach.
+
+Powód stałych ramek: zdjęcia prac mają bardzo różne proporcje, a bez
+wspólnej ramki karty miałyby różną wysokość, a hero podskakiwałoby przy
+zmianie motywu.
+
+Ile traci każda praca na kartach przy kadrze 4:5 (zmierzone):
+
+| Praca | Proporcja pliku | Przycięcie |
+|---|---|---|
+| Forma z otworami | 0,54 | 33% wysokości |
+| Dwa motyle | 0,56 | 30% wysokości |
+| Krucyfiks z aureolą | 0,94 | 14% szerokości |
+| Koń ze skrzydłami | 0,91 | 12% szerokości |
+
+`object-position` zostaje na `center` dla wszystkich kart — sprawdzone
+na zawartości zdjęć:
+
+- **Dwa motyle**: rzeźba zajmuje 21–83% wysokości, a kadr 4:5 pokazuje
+  15–85%. Przycięcie zjada wyłącznie czarne tło, nic z pracy.
+- **Forma z otworami**: rzeźba wypełnia kadr od 2% do 98%, więc każde
+  przycięcie coś zabiera. Środek ciężkości pracy (ważony szerokością
+  w kolejnych wierszach) wypada na 47% wysokości, czyli praktycznie
+  w centrum — przesunięcie `object-position` w którąkolwiek stronę
+  odcięłoby więcej rzeźby, nie mniej.
+
+Przy dodawaniu nowej pracy warto to policzyć ponownie: przycięcie
+w procentach to `1 − (proporcja zdjęcia ÷ 0,8)` dla zdjęć smuklejszych
+niż ramka i `1 − (0,8 ÷ proporcja zdjęcia)` dla szerszych.
 
 ### Opisy alt
 
@@ -144,6 +172,47 @@ nie trzeba dopisywać nowych breakpointów.
 ścieżki do zdjęcia i miniatury). Pola metryki drewna są na razie puste —
 do uzupełnienia razem z mamą. Foldery: `duze/` (do 1600 px) i
 `miniatury/` (do 600 px) w katalogu każdego cyklu.
+
+### Sekcja "Cztery sale"
+
+`#wystawa` — cztery karty cykli w siatce 4 / 2 / 1 kolumny
+(komputer / tablet poniżej 1024 px / telefon poniżej 768 px).
+Liczby prac na kartach są zgodne z `images/prace.json`
+(Twarze i formy 5, Skrzydła 4, Sacrum 4, Złoto lasu 4) —
+przy dodaniu pracy trzeba poprawić obie rzeczy.
+
+Karta to jeden `<a>` obejmujący zdjęcie i podpis, a karty leżą w `<ul>`,
+żeby czytnik ekranu zapowiedział listę i jej długość.
+
+Efekt po najechaniu: przybliżenie zdjęcia o 4% (0,7 s) i nazwa cyklu
+w kolorze akcentu. Wyłączany przez `@media (prefers-reduced-motion)`.
+
+### Wczytywanie zdjęć
+
+`loading="lazy"` na wszystkich zdjęciach **poniżej pierwszego ekranu**.
+Zdjęcia w hero zostają bez tego atrybutu — są widoczne od razu,
+a odroczenie ich wczytania opóźniłoby pierwsze wrażenie.
+
+Każde `<img>` ma atrybuty `width` i `height` z prawdziwymi wymiarami
+pliku. To nie ustawia rozmiaru na stronie (robi to CSS), tylko pozwala
+przeglądarce zarezerwować miejsce i nie przesuwać treści w trakcie
+wczytywania.
+
+## Sprawy otwarte
+
+- **Podstrony sal.** Karty w sekcji `#wystawa` prowadzą na razie do `"#"`.
+  Do zrobienia: osobne strony cykli (Twarze i formy, Skrzydła, Sacrum,
+  Złoto lasu) i podmiana adresów w `index.html`.
+- **Metryka drewna.** Pola `gatunek_drewna`, `skad_drewno`, `wymiary`,
+  `rok`, `dostepnosc`, `opis` w `images/prace.json` są puste —
+  do uzupełnienia z mamą.
+- **Tytuły prac.** W `prace.json` są tytuły robocze, do zastąpienia
+  prawdziwymi.
+- **Kadrowanie miniatur.** Ramka 4:5 przycina smukłe prace o ok. 30–33%
+  wysokości (patrz tabela w „Proporcje zdjęć"). Tło zdjęć jest na tyle
+  puste, że w praktyce ginie głównie ono — ale gdyby przy kolejnych
+  pracach okazało się to za dużo, alternatywą jest `object-fit: contain`
+  z tłem `--tlo-drugie` (praca w całości, jak passe-partout).
 
 ## Jak ze mną pracować
 

@@ -316,7 +316,7 @@ button:focus-visible {
   align-items: center;
 }
 
-.hero__etykieta {
+.etykieta {
   margin: 0 0 var(--odstep-l);
   color: var(--akcent);
   font-size: 0.72rem;
@@ -422,7 +422,7 @@ button:focus-visible {
     order: -1;
   }
 
-  .hero__etykieta {
+  .hero .etykieta {
     margin-bottom: var(--odstep-m);
   }
 
@@ -436,5 +436,148 @@ button:focus-visible {
 
   .hero__przyciski .przycisk {
     flex: 1 1 100%;               /* przyciski na pełną szerokość, jeden pod drugim */
+  }
+}
+
+/* ---------------------------------------------------------
+   8. WYSTAWA — cztery sale
+   --------------------------------------------------------- */
+
+.wystawa {
+  padding: clamp(3rem, 8vw, 7rem) 0;
+  border-top: 1px solid var(--linie);
+}
+
+.wystawa__wnetrze {
+  max-width: var(--szerokosc-strony);
+  margin: 0 auto;
+  padding: 0 var(--odstep-l);
+}
+
+/* --- Nagłówek sekcji: tytuł po lewej, akapit po prawej --- */
+
+.sekcja-naglowek {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--odstep-l);
+  align-items: end;            /* oba bloki wyrównane dolną krawędzią */
+
+  margin-bottom: clamp(2.5rem, 5vw, 4.5rem);
+}
+
+.sekcja-naglowek__tytul {
+  margin: 0;
+  font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+  font-weight: 300;
+}
+
+.sekcja-naglowek__opis {
+  margin: 0;
+  max-width: 44ch;
+  color: var(--tekst-przygaszony);
+  font-weight: 300;
+}
+
+/* --- Siatka kart --- */
+
+.sale {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);   /* cztery równe kolumny */
+  gap: var(--odstep-l);
+}
+
+/* --- Pojedyncza karta --- */
+
+.sala {
+  display: block;
+}
+
+/* Kadr zdjęcia. overflow: hidden przycina zdjęcie do ramki —
+   bez tego przybliżenie przy najechaniu wylewałoby się poza kartę. */
+.sala__kadr {
+  overflow: hidden;
+  background-color: var(--tlo-drugie);   /* widoczne zanim zdjęcie się wczyta */
+}
+
+.sala__kadr img {
+  display: block;
+  width: 100%;
+  /* Kadr 4:5 — łagodniejszy dla prac o proporcjach zbliżonych do kwadratu.
+     Ten sam kadr na komputerze, tablecie i telefonie. */
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  object-position: center;
+
+  transition: transform 0.7s ease;
+}
+
+.sala__nazwa {
+  margin: var(--odstep-m) 0 0.35rem;
+  font-size: 1.45rem;
+  font-weight: 400;
+  transition: color 0.3s ease;
+}
+
+.sala__liczba {
+  margin: 0;
+  color: var(--tekst-przygaszony);
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+/* --- Efekt po najechaniu: powolne, niewielkie przybliżenie --- */
+
+.sala:hover .sala__kadr img,
+.sala:focus-visible .sala__kadr img {
+  transform: scale(1.04);
+}
+
+.sala:hover .sala__nazwa,
+.sala:focus-visible .sala__nazwa {
+  color: var(--akcent);
+}
+
+/* Część osób ustawia w systemie "ogranicz animacje" — ruch potrafi
+   wywoływać zawroty głowy. Wtedy zostaje sama zmiana koloru. */
+@media (prefers-reduced-motion: reduce) {
+  .sala__kadr img {
+    transition: none;
+  }
+
+  .sala:hover .sala__kadr img,
+  .sala:focus-visible .sala__kadr img {
+    transform: none;
+  }
+}
+
+/* --- Tablet: dwie kolumny --- */
+
+@media (max-width: 1024px) {
+  .sale {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* --- Telefon: jedna kolumna --- */
+
+@media (max-width: 768px) {
+  .wystawa__wnetrze {
+    padding-left: var(--odstep-m);
+    padding-right: var(--odstep-m);
+  }
+
+  .sekcja-naglowek {
+    grid-template-columns: 1fr;    /* akapit schodzi pod tytuł */
+    gap: var(--odstep-m);
+  }
+
+  .sale {
+    grid-template-columns: 1fr;
+    gap: calc(var(--odstep-l) * 1.25);
   }
 }

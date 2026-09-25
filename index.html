@@ -95,7 +95,7 @@
 
         <!-- Kolumna lewa: tekst -->
         <div class="hero__tekst">
-          <p class="hero__etykieta">Rzeźba w drewnie · prace unikatowe</p>
+          <p class="etykieta">Rzeźba w drewnie · prace unikatowe</p>
 
           <h1 class="hero__tytul">Drugie życie drewna</h1>
 
@@ -146,7 +146,88 @@
       </div>
     </section>
 
-    <!-- Tutaj powstaną kolejne sekcje: wystawa, metryka drewna,
+
+    <!-- =====================================================
+         WYSTAWA — cztery sale (cykle prac)
+         ===================================================== -->
+    <section class="wystawa" id="wystawa">
+      <div class="wystawa__wnetrze">
+
+        <header class="sekcja-naglowek">
+          <div>
+            <p class="etykieta">Wystawa</p>
+            <h2 class="sekcja-naglowek__tytul">Cztery sale</h2>
+          </div>
+          <p class="sekcja-naglowek__opis">
+            Prace ułożone w cykle, tak jak powstawały: z tego samego lasu,
+            tego samego pytania, tego samego materiału.
+          </p>
+        </header>
+
+        <!-- <ul> zamiast zwykłych <div>: to jest lista sal, a czytnik
+             ekranu zapowie "lista, 4 pozycje" i pozwoli po niej skakać.
+             Cała karta jest jednym <a>, więc klikalne jest zdjęcie
+             razem z podpisem. -->
+        <ul class="sale">
+
+          <li>
+            <a class="sala" href="#">
+              <div class="sala__kadr">
+                <img
+                  src="images/twarze-i-formy/miniatury/forma-z-otworami.jpg"
+                  width="323" height="600" loading="lazy"
+                  alt="Wysoka, smukła forma z ciemnego drewna o miękkim, opływowym zarysie, gęsto przewiercona owalnymi otworami.">
+              </div>
+              <h3 class="sala__nazwa">Twarze i formy</h3>
+              <p class="sala__liczba">5 prac</p>
+            </a>
+          </li>
+
+          <li>
+            <a class="sala" href="#">
+              <div class="sala__kadr">
+                <img
+                  src="images/skrzydla/miniatury/dwa-motyle-noc.jpg"
+                  width="337" height="600" loading="lazy"
+                  alt="Dwa motyle złożone z kawałków surowego drewna, z cienkimi czułkami, ustawione jeden nad drugim na czarnym tle.">
+              </div>
+              <h3 class="sala__nazwa">Skrzydła</h3>
+              <p class="sala__liczba">4 prace</p>
+            </a>
+          </li>
+
+          <li>
+            <a class="sala" href="#">
+              <div class="sala__kadr">
+                <img
+                  src="images/sacrum/miniatury/krucyfiks-z-aureola.jpg"
+                  width="561" height="600" loading="lazy"
+                  alt="Krucyfiks z nieobrobionych gałęzi związanych sznurkiem, z postacią i złoconą, promienistą aureolą, na jasnej ścianie w ciepłym świetle.">
+              </div>
+              <h3 class="sala__nazwa">Sacrum</h3>
+              <p class="sala__liczba">4 prace</p>
+            </a>
+          </li>
+
+          <li>
+            <a class="sala" href="#">
+              <div class="sala__kadr">
+                <img
+                  src="images/zloto-lasu/miniatury/kon-ze-skrzydlami.jpg"
+                  width="546" height="600" loading="lazy"
+                  alt="Drewniany koń na prostej podstawie, ze złoconymi, ażurowymi skrzydłami wyciętymi w metalowej blasze.">
+              </div>
+              <h3 class="sala__nazwa">Złoto lasu</h3>
+              <p class="sala__liczba">4 prace</p>
+            </a>
+          </li>
+
+        </ul>
+
+      </div>
+    </section>
+
+    <!-- Tutaj powstaną kolejne sekcje: metryka drewna,
          artystka, zamówienia. -->
   </main>
 
