@@ -988,3 +988,174 @@ button:focus-visible {
     width: 100%;
   }
 }
+
+/* ---------------------------------------------------------
+   14. ARTYSTKA
+   --------------------------------------------------------- */
+
+.artystka {
+  padding: clamp(3rem, 8vw, 7rem) 0;
+  border-top: 1px solid var(--linie);
+}
+
+.artystka__wnetrze {
+  max-width: var(--szerokosc-strony);
+  margin: 0 auto;
+  padding: 0 var(--odstep-l);
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(2rem, 5vw, 4.5rem);
+  align-items: center;
+}
+
+/* Miejsce na portret. Ma dokładnie te proporcje, które będzie miało
+   zdjęcie, więc po podmianie układ nie drgnie. */
+.artystka__portret {
+  aspect-ratio: 4 / 5;
+  background-color: var(--tlo-drugie);
+  border: 1px solid var(--linie);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--odstep-m);
+
+  text-align: center;
+  font-size: 0.8rem;
+  letter-spacing: 0.14em;
+}
+
+.artystka__akapit {
+  margin: 0 0 var(--odstep-m);
+  max-width: 48ch;
+  color: var(--tekst-przygaszony);
+  font-weight: 300;
+}
+
+.artystka .tytul-sekcji {
+  margin: 0 0 var(--odstep-l);
+}
+
+/* Cytat. Kolor zostaje dziedziczony, żeby klasa do-uzupelnienia
+   na akapicie w środku mogła go przygasić — po wpisaniu prawdziwego
+   cytatu i usunięciu tej klasy tekst sam wróci do pełnego koloru. */
+.cytat {
+  margin: var(--odstep-l) 0 0;
+  padding-left: var(--odstep-m);
+  border-left: 2px solid var(--akcent);
+}
+
+.cytat p {
+  margin: 0;
+  font-family: var(--font-naglowki);
+  font-style: italic;
+  font-size: 1.4rem;
+  line-height: 1.5;
+}
+
+/* ---------------------------------------------------------
+   15. STOPKA
+   --------------------------------------------------------- */
+
+.stopka {
+  border-top: 1px solid var(--linie);
+  padding: clamp(2.5rem, 6vw, 4rem) 0 clamp(2rem, 4vw, 3rem);
+}
+
+.stopka__wnetrze {
+  max-width: var(--szerokosc-strony);
+  margin: 0 auto;
+  padding: 0 var(--odstep-l);
+
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;   /* nazwa szersza niż kolumny z linkami */
+  gap: var(--odstep-l);
+}
+
+.stopka__nazwa {
+  margin: 0 0 var(--odstep-s);
+  font-family: var(--font-naglowki);
+  font-size: 1.4rem;
+  letter-spacing: 0.06em;
+}
+
+.stopka__opis {
+  margin: 0;
+  color: var(--tekst-przygaszony);
+  font-size: 0.9rem;
+}
+
+/* Nagłówki kolumn w stopce są nagłówkami w strukturze dokumentu,
+   ale wizualnie mają być drobne — stąd krój tekstowy zamiast
+   nagłówkowego i mały rozmiar. */
+.stopka__tytul {
+  margin: 0 0 var(--odstep-s);
+  color: var(--tekst-przygaszony);
+  font-family: var(--font-tekst);
+  font-size: 0.7rem;
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.stopka__lista {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  font-size: 0.9rem;
+}
+
+.stopka__lista a {
+  color: var(--tekst-przygaszony);
+  border-bottom: 1px solid transparent;
+  transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+.stopka__lista a:hover {
+  color: var(--akcent);
+  border-bottom-color: var(--akcent);
+}
+
+.stopka__prawa {
+  margin: var(--odstep-m) 0 0;
+  color: var(--tekst-przygaszony);
+  font-size: 0.78rem;
+}
+
+/* ---------------------------------------------------------
+   16. ARTYSTKA I STOPKA NA MNIEJSZYCH EKRANACH
+   --------------------------------------------------------- */
+
+@media (max-width: 1024px) {
+  .stopka__wnetrze {
+    grid-template-columns: 1fr 1fr;
+    row-gap: calc(var(--odstep-l) * 1.25);
+  }
+}
+
+@media (max-width: 768px) {
+  .artystka__wnetrze,
+  .stopka__wnetrze {
+    padding-left: var(--odstep-m);
+    padding-right: var(--odstep-m);
+  }
+
+  .artystka__wnetrze {
+    grid-template-columns: 1fr;
+    gap: var(--odstep-l);
+  }
+
+  .cytat p {
+    font-size: 1.2rem;
+  }
+
+  .stopka__wnetrze {
+    grid-template-columns: 1fr;
+    gap: var(--odstep-l);
+  }
+}

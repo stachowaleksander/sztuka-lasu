@@ -43,9 +43,9 @@ js/main.js                  interakcje
 images/                     zdjęcia rzeźb
 ```
 
-**Nagłówek jest skopiowany do wszystkich trzech stron.** Bez systemu
-budowania nie da się trzymać go w jednym miejscu, więc **zmiana w menu
-albo w przełączniku motywu wymaga poprawki w trzech plikach**.
+**Nagłówek i stopka są skopiowane do wszystkich trzech stron.** Bez systemu
+budowania nie da się trzymać ich w jednym miejscu, więc **zmiana w menu,
+w przełączniku motywu albo w stopce wymaga poprawki w trzech plikach**.
 
 Na podstronach linki menu mają przedrostek `index.html` (`index.html#wystawa`),
 bo same kotwice prowadziłyby do sekcji, których tam nie ma.
@@ -112,8 +112,11 @@ podkreślenie `__` oznacza element należący do bloku.
 |---|---|
 | `#wystawa` | gotowa — cztery sale |
 | `#metryka` | gotowa — metryka drewna |
-| `#artystka` | do zrobienia |
+| `#artystka` | gotowa — treść zastępcza (lorem ipsum) |
 | `#zamowienia` | gotowa — proces i formularz wyceny |
+
+Kolejność sekcji na stronie odpowiada kolejności w menu:
+wystawa → metryka → artystka → zamówienia.
 
 Menu w nagłówku prowadzi do tych kotwic. **Przy dodawaniu sekcji
 sprawdzić, czy `id` zgadza się z `href` w menu** — pierwotnie menu
@@ -131,6 +134,8 @@ zamiast być kopiowane:
 - `.do-uzupelnienia` — tymczasowa wartość w nawiasach kwadratowych.
 - `.pole` + `.pole__etykieta` / `.pole__wejscie` / `.pole__opis` — pole formularza.
 - `.strona-prosta` — wąska kolumna tekstu na podstronach.
+- `.stopka` — stopka, identyczna na trzech stronach.
+- `.cytat` — `blockquote` z kreską w kolorze akcentu.
 
 ### Formularz i Netlify Forms
 
@@ -277,6 +282,20 @@ wczytywania.
 
 ### Blokujące publikację
 
+- **Usunąć `<meta name="robots" content="noindex">`.** Znacznik jest
+  w `index.html` i `polityka-prywatnosci.html`, bo strona stoi na adresie
+  testowym z lorem ipsum i wartościami w nawiasach. Trzyma ją poza Google.
+  **Przy starcie na sztukalasu.pl usunąć go z obu tych plików.**
+  W `dziekujemy.html` `noindex` **zostaje na stałe** — ta strona ma sens
+  tylko zaraz po wysłaniu formularza i nie ma po co trafiać do wyszukiwarki.
+- **Sekcja `#artystka` to lorem ipsum.** Imię i nazwisko, dwa akapity,
+  cytat i portret (`[ZDJĘCIE ARTYSTKI]`) są zastępcze — do napisania
+  i sfotografowania razem z mamą. Portret ma proporcje 4:5, więc zdjęcie
+  wejdzie w gotowe miejsce bez zmian w układzie.
+- **Dane kontaktowe w stopce są zastępcze.** `[IMIĘ I NAZWISKO]`,
+  `[MIEJSCOWOŚĆ]`, `[ADRES E-MAIL]`, `[TELEFON]` oraz link do Instagrama
+  prowadzący do `"#"`. Uwaga: stopka stoi w trzech plikach — poprawić
+  we wszystkich.
 - **Polityka prywatności do napisania.** `polityka-prywatnosci.html` zawiera
   wyłącznie `[TREŚĆ DO UZUPEŁNIENIA]`. Formularz zbiera dane osobowe
   (imię, e-mail, telefon), a zgoda w formularzu linkuje do tej strony —
@@ -292,7 +311,8 @@ wczytywania.
   **Strona nie może trafić do publikacji z nawiasami.**
 
 **Jak znaleźć wszystkie miejsca do wypełnienia:** wyszukać
-`do-uzupelnienia` w `index.html` i `polityka-prywatnosci.html`.
+`do-uzupelnienia` we wszystkich trzech plikach HTML (stopka z wartościami
+zastępczymi stoi także w `dziekujemy.html`).
 Po wpisaniu prawdziwych treści usunąć tę klasę ze znaczników,
 a na końcu regułę `.do-uzupelnienia` ze `style.css`.
 

@@ -6,6 +6,12 @@
   <title>Sztuka Lasu — rzeźby w drewnie</title>
   <meta name="description" content="Wirtualna galeria rzeźb w drewnie. Każda praca powstaje z gałęzi i odłamków zebranych w lesie — z drewna, które dostaje drugie życie.">
 
+  <!-- TYMCZASOWE: strona stoi na adresie testowym i ma w sobie lorem ipsum
+       oraz wartości w nawiasach kwadratowych. noindex trzyma ją poza
+       wynikami Google do czasu startu na sztukalasu.pl.
+       USUNĄĆ PRZED PUBLIKACJĄ — patrz CLAUDE.md, "Sprawy otwarte". -->
+  <meta name="robots" content="noindex">
+
   <!--
     Skrypt ustawiający motyw MUSI stać tutaj, w <head>, przed stylami
     i przed treścią strony. Przeglądarka wykonuje go zanim cokolwiek
@@ -283,7 +289,50 @@
       </div>
     </section>
 
-    <!-- Tutaj powstanie jeszcze sekcja: artystka. -->
+    <!-- =====================================================
+         ARTYSTKA
+
+         Cała treść tej sekcji jest zastępcza — do napisania
+         razem z mamą. Stąd klasa do-uzupelnienia na każdym
+         elemencie z tekstem.
+         ===================================================== -->
+    <section class="artystka" id="artystka">
+      <div class="artystka__wnetrze">
+
+        <!-- Miejsce na portret. Prostokąt 4:5 w kolorze tła drugiego
+             trzyma układ dokładnie taki, jaki będzie po wstawieniu
+             zdjęcia — dzięki temu nic nie podskoczy przy podmianie. -->
+        <div class="artystka__portret do-uzupelnienia">[ZDJĘCIE ARTYSTKI]</div>
+
+        <div class="artystka__tekst">
+          <p class="etykieta">Artystka</p>
+
+          <h2 class="tytul-sekcji do-uzupelnienia">[IMIĘ I NAZWISKO ARTYSTKI]</h2>
+
+          <p class="artystka__akapit do-uzupelnienia">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+            aliquip ex ea commodo consequat.
+          </p>
+
+          <p class="artystka__akapit do-uzupelnienia">
+            Duis aute irure dolor in reprehenderit in voluptate velit esse
+            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+            cupidatat non proident, sunt in culpa qui officia deserunt mollit
+            anim id est laborum.
+          </p>
+
+          <blockquote class="cytat">
+            <p class="do-uzupelnienia">
+              Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+              accusantium doloremque laudantium.
+            </p>
+          </blockquote>
+        </div>
+
+      </div>
+    </section>
 
     <!-- =====================================================
          ZAMÓWIENIA — proces i formularz prośby o wycenę
@@ -508,6 +557,44 @@
     </section>
 
   </main>
+
+  <!-- =====================================================
+       STOPKA
+
+       Uwaga: ta sama stopka stoi w trzech plikach
+       (index.html, dziekujemy.html, polityka-prywatnosci.html).
+       Zmiana tutaj wymaga tej samej zmiany w pozostałych dwóch.
+       ===================================================== -->
+  <footer class="stopka">
+    <div class="stopka__wnetrze">
+
+      <div class="stopka__blok">
+        <p class="stopka__nazwa">Sztuka Lasu</p>
+        <p class="stopka__opis">
+          <span class="do-uzupelnienia">[IMIĘ I NAZWISKO]</span> ·
+          pracownia <span class="do-uzupelnienia">[MIEJSCOWOŚĆ]</span>
+        </p>
+      </div>
+
+      <div class="stopka__blok">
+        <h2 class="stopka__tytul">Kontakt</h2>
+        <ul class="stopka__lista">
+          <li><a class="do-uzupelnienia" href="#">[ADRES E-MAIL]</a></li>
+          <li><a class="do-uzupelnienia" href="#">[TELEFON]</a></li>
+          <li><a href="#">Instagram</a></li>
+        </ul>
+      </div>
+
+      <div class="stopka__blok">
+        <h2 class="stopka__tytul">Informacje</h2>
+        <ul class="stopka__lista">
+          <li><a href="polityka-prywatnosci.html">Polityka prywatności</a></li>
+        </ul>
+        <p class="stopka__prawa">© 2026 Sztuka Lasu</p>
+      </div>
+
+    </div>
+  </footer>
 
   <script src="js/main.js"></script>
 </body>
