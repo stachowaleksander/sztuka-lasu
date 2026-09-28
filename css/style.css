@@ -714,3 +714,277 @@ button:focus-visible {
     padding-top: 0.85rem;
   }
 }
+
+/* ---------------------------------------------------------
+   10. ZAMÓWIENIA — proces
+
+   Sekcja wraca do podstawowego tła (--tlo) po "Metryce drewna",
+   która ma --tlo-drugie. Sama zmiana tła je rozdziela, więc nie
+   dokładamy tu linii.
+   --------------------------------------------------------- */
+
+.zamowienia {
+  padding: clamp(3rem, 8vw, 7rem) 0;
+}
+
+.zamowienia__wnetrze {
+  max-width: var(--szerokosc-strony);
+  margin: 0 auto;
+  padding: 0 var(--odstep-l);
+}
+
+.kroki {
+  list-style: none;         /* numery rysujemy sami, w <span> */
+  margin: 0;
+  padding: 0;
+
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: var(--odstep-l);
+}
+
+.krok {
+  padding-top: var(--odstep-m);
+  border-top: 1px solid var(--linie);
+}
+
+.krok__numer {
+  display: block;
+  margin-bottom: var(--odstep-s);
+
+  color: var(--akcent);
+  font-family: var(--font-naglowki);
+  font-size: 2.4rem;
+  line-height: 1;
+}
+
+.krok__tytul {
+  margin: 0 0 var(--odstep-s);
+  font-size: 1.3rem;
+  font-weight: 400;
+}
+
+.krok__opis {
+  margin: 0;
+  color: var(--tekst-przygaszony);
+  font-size: 0.92rem;
+  font-weight: 300;
+  line-height: 1.6;
+}
+
+/* ---------------------------------------------------------
+   11. FORMULARZ PROŚBY O WYCENĘ
+   --------------------------------------------------------- */
+
+.formularz {
+  margin-top: clamp(3rem, 6vw, 5rem);
+  max-width: 46rem;
+}
+
+/* Pole-pułapka na boty. display: none ukrywa je przed wszystkimi —
+   także przed czytnikami ekranu, i o to chodzi: człowiek nie ma
+   prawa go zobaczyć ani o nim usłyszeć. */
+.ukryte-pole {
+  display: none;
+}
+
+.formularz__wstep {
+  margin: 0 0 var(--odstep-l);
+  color: var(--tekst-przygaszony);
+  font-size: 0.85rem;
+}
+
+/* Imię, e-mail i telefon w jednym rzędzie */
+.formularz__rzad {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--odstep-m);
+  margin-bottom: var(--odstep-l);
+}
+
+.formularz__rzad .pole {
+  margin-bottom: 0;         /* odstępy robi gap siatki */
+}
+
+.pole {
+  margin: 0 0 var(--odstep-l);
+}
+
+.pole__etykieta {
+  display: block;
+  margin-bottom: 0.45rem;
+  padding: 0;               /* <legend> ma domyślny padding */
+
+  color: var(--tekst-przygaszony);
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.pole__wejscie {
+  display: block;
+  width: 100%;
+  padding: 0.9rem 1rem;     /* pole wysokie na ok. 48 px — wygodne na telefonie */
+
+  background-color: transparent;
+  border: 1px solid var(--linie);
+  border-radius: 0;         /* Safari na iOS zaokrągla pola domyślnie */
+
+  color: var(--tekst);
+  font-family: var(--font-tekst);
+
+  /* 1rem = 16 px. Przy mniejszej wartości iPhone przybliża stronę
+     w momencie kliknięcia w pole — i nie odsuwa jej z powrotem. */
+  font-size: 1rem;
+  line-height: 1.5;
+
+  transition: border-color 0.3s ease;
+}
+
+.pole__wejscie:focus {
+  border-color: var(--akcent);
+}
+
+.pole__wejscie:focus-visible {
+  outline: 2px solid var(--akcent);
+  outline-offset: 2px;
+}
+
+.pole__wejscie--duze {
+  min-height: 9rem;
+  resize: vertical;         /* użytkownik może powiększyć, ale nie rozepchać układu w bok */
+}
+
+.pole__opis {
+  margin: 0.45rem 0 0;
+  color: var(--tekst-przygaszony);
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
+/* --- Grupa przycisków radio --- */
+
+.pole--grupa {
+  border: none;             /* <fieldset> ma domyślną ramkę */
+  padding: 0;
+  min-width: 0;             /* bez tego fieldset nie kurczy się w siatce */
+}
+
+/* Cała etykieta jest klikalna, bo <input> siedzi w <label>.
+   min-height pilnuje obszaru dotyku zalecanego na telefonach (44 px). */
+.wybor {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-height: 44px;
+  cursor: pointer;
+}
+
+.wybor input,
+.zgoda input {
+  width: 1.15rem;
+  height: 1.15rem;
+  flex-shrink: 0;
+  cursor: pointer;
+
+  /* Jedna linijka zamiast przerysowywania kontrolki od zera —
+     przeglądarka pokoloruje zaznaczenie kolorem akcentu. */
+  accent-color: var(--akcent);
+}
+
+.wybor span {
+  font-size: 0.98rem;
+}
+
+/* --- Zgoda --- */
+
+.zgoda {
+  display: flex;
+  align-items: flex-start;  /* kwadracik przy pierwszym wierszu, nie na środku */
+  gap: 0.75rem;
+  margin-bottom: calc(var(--odstep-l) * 1.25);
+  cursor: pointer;
+
+  color: var(--tekst-przygaszony);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.zgoda input {
+  margin-top: 0.22rem;
+}
+
+.zgoda a {
+  color: var(--tekst);
+  border-bottom: 1px solid var(--akcent);
+}
+
+.zgoda a:hover {
+  color: var(--akcent);
+}
+
+/* ---------------------------------------------------------
+   12. STRONY PROSTE — dziękujemy, polityka prywatności
+   --------------------------------------------------------- */
+
+.strona-prosta {
+  padding: clamp(3.5rem, 11vw, 8rem) 0;
+}
+
+.strona-prosta__wnetrze {
+  max-width: 44rem;
+  margin: 0 auto;
+  padding: 0 var(--odstep-l);
+}
+
+.strona-prosta__tytul {
+  margin: 0 0 var(--odstep-l);
+  font-size: clamp(2.2rem, 5vw, 3.6rem);
+  font-weight: 300;
+}
+
+.strona-prosta__tekst {
+  margin: 0 0 var(--odstep-m);
+  max-width: 52ch;
+  color: var(--tekst-przygaszony);
+  font-weight: 300;
+}
+
+.strona-prosta__powrot {
+  margin-top: calc(var(--odstep-l) * 1.25);
+}
+
+/* ---------------------------------------------------------
+   13. ZAMÓWIENIA I FORMULARZ NA MNIEJSZYCH EKRANACH
+   --------------------------------------------------------- */
+
+/* Tablet: pięć kolumn dałoby ok. 190 px na krok, czyli opisy
+   łamane po dwa słowa. Trzy kolumny układają kroki 3 + 2. */
+@media (max-width: 1024px) {
+  .kroki {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .zamowienia__wnetrze,
+  .strona-prosta__wnetrze {
+    padding-left: var(--odstep-m);
+    padding-right: var(--odstep-m);
+  }
+
+  .kroki {
+    grid-template-columns: 1fr;
+    gap: var(--odstep-m);
+  }
+
+  .formularz__rzad {
+    grid-template-columns: 1fr;
+    gap: var(--odstep-l);
+  }
+
+  /* Przycisk na pełną szerokość — łatwiej w niego trafić kciukiem */
+  .formularz .przycisk {
+    width: 100%;
+  }
+}

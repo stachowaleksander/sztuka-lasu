@@ -40,7 +40,7 @@
   <header class="naglowek">
     <div class="naglowek__wnetrze">
 
-      <a class="logo" href="/">Sztuka Lasu</a>
+      <a class="logo" href="index.html">Sztuka Lasu</a>
 
       <!-- <nav> mówi czytnikom ekranu, że to nawigacja po stronie.
            aria-label rozróżnia ją od innych nawigacji w przyszłości. -->
@@ -283,7 +283,230 @@
       </div>
     </section>
 
-    <!-- Tutaj powstaną kolejne sekcje: artystka, zamówienia. -->
+    <!-- Tutaj powstanie jeszcze sekcja: artystka. -->
+
+    <!-- =====================================================
+         ZAMÓWIENIA — proces i formularz prośby o wycenę
+         ===================================================== -->
+    <section class="zamowienia" id="zamowienia">
+      <div class="zamowienia__wnetrze">
+
+        <header class="sekcja-naglowek">
+          <div>
+            <p class="etykieta">Zamówienia</p>
+            <h2 class="tytul-sekcji">Rzeźba stworzona dla Ciebie</h2>
+          </div>
+          <p class="sekcja-naglowek__opis">
+            Każde zamówienie zaczyna się od rozmowy, a kończy pracą,
+            której nie da się powtórzyć.
+          </p>
+        </header>
+
+        <!-- Pięć kroków procesu.
+
+             <ol> zamiast <ul>, bo kolejność ma tu znaczenie — czytnik
+             ekranu zapowie "lista, 5 pozycji" i poda numer każdej.
+             Widoczne numery 01–05 są ozdobą powtarzającą to, co lista
+             i tak niesie, dlatego mają aria-hidden="true": bez tego
+             czytnik przeczytałby "jeden, zero jeden, Rozmowa". -->
+        <ol class="kroki">
+
+          <li class="krok">
+            <span class="krok__numer" aria-hidden="true">01</span>
+            <h3 class="krok__tytul">Rozmowa</h3>
+            <p class="krok__opis">
+              Opowiadasz, dla kogo jest rzeźba i gdzie zamieszka.
+            </p>
+          </li>
+
+          <li class="krok">
+            <span class="krok__numer" aria-hidden="true">02</span>
+            <h3 class="krok__tytul">Poszukiwanie drewna</h3>
+            <p class="krok__opis">
+              Artystka szuka w lesie fragmentu, który pasuje do pomysłu.
+            </p>
+          </li>
+
+          <li class="krok">
+            <span class="krok__numer" aria-hidden="true">03</span>
+            <h3 class="krok__tytul">Szkic i wycena</h3>
+            <p class="krok__opis">
+              Otrzymujesz zdjęcie drewna, szkic i indywidualną wycenę.
+            </p>
+          </li>
+
+          <li class="krok">
+            <span class="krok__numer" aria-hidden="true">04</span>
+            <h3 class="krok__tytul">Rzeźbienie</h3>
+            <p class="krok__opis">
+              Praca powstaje ręcznie; pokazujemy zdjęcia z postępów.
+            </p>
+          </li>
+
+          <li class="krok">
+            <span class="krok__numer" aria-hidden="true">05</span>
+            <h3 class="krok__tytul">Przekazanie</h3>
+            <p class="krok__opis">
+              Rzeźba trafia do Ciebie razem z metryką drewna.
+            </p>
+          </li>
+
+        </ol>
+
+        <!-- =================================================
+             FORMULARZ PROŚBY O WYCENĘ
+
+             Obsługuje go Netlify Forms. Formularz jest zwykłym
+             formularzem HTML — to serwery Netlify przechwytują
+             wysłane dane. Stąd trzy rzeczy, których nie ma
+             w zwyczajnym formularzu:
+
+             data-netlify="true"  — po tym atrybucie Netlify
+                 rozpoznaje formularz podczas wdrażania strony.
+             form-name (ukryte)   — mówi, do którego formularza
+                 należy zgłoszenie. Bez niego Netlify je odrzuci.
+             netlify-honeypot     — wskazuje pole-pułapkę na boty.
+
+             action="/dziekujemy.html" — dokąd Netlify przekieruje
+                 po udanym wysłaniu.
+             ================================================= -->
+        <form
+          class="formularz"
+          name="wycena"
+          method="POST"
+          action="/dziekujemy.html"
+          data-netlify="true"
+          netlify-honeypot="bot-field">
+
+          <input type="hidden" name="form-name" value="wycena">
+
+          <!-- Pole-pułapka. Człowiek go nie zobaczy (display: none),
+               więc zostawi puste. Boty wypełniają wszystko, co znajdą
+               w kodzie — wypełnione pole oznacza zgłoszenie od bota
+               i Netlify odrzuca je po cichu. -->
+          <p class="ukryte-pole">
+            <label>
+              Nie wypełniaj tego pola:
+              <input name="bot-field" tabindex="-1" autocomplete="off">
+            </label>
+          </p>
+
+          <p class="formularz__wstep">
+            Pola oznaczone <span aria-hidden="true">*</span> są wymagane.
+          </p>
+
+          <!-- Imię, e-mail, telefon — obok siebie na szerokim ekranie -->
+          <div class="formularz__rzad">
+
+            <div class="pole">
+              <label class="pole__etykieta" for="imie">
+                Imię <span aria-hidden="true">*</span>
+              </label>
+              <input
+                class="pole__wejscie"
+                type="text" id="imie" name="imie"
+                required autocomplete="given-name"
+                aria-describedby="imie-opis">
+              <p class="pole__opis" id="imie-opis">Jak się do Ciebie zwracać.</p>
+            </div>
+
+            <div class="pole">
+              <label class="pole__etykieta" for="email">
+                E-mail <span aria-hidden="true">*</span>
+              </label>
+              <!-- type="email" włącza sprawdzanie adresu przez przeglądarkę,
+                   a na telefonie klawiaturę ze znakiem @. -->
+              <input
+                class="pole__wejscie"
+                type="email" id="email" name="email"
+                required autocomplete="email" inputmode="email"
+                aria-describedby="email-opis">
+              <p class="pole__opis" id="email-opis">Na ten adres odpiszemy z wyceną.</p>
+            </div>
+
+            <div class="pole">
+              <label class="pole__etykieta" for="telefon">Telefon</label>
+              <input
+                class="pole__wejscie"
+                type="tel" id="telefon" name="telefon"
+                autocomplete="tel" inputmode="tel"
+                aria-describedby="telefon-opis">
+              <p class="pole__opis" id="telefon-opis">Nieobowiązkowo, jeśli wolisz rozmowę.</p>
+            </div>
+
+          </div>
+
+          <!-- Grupa przycisków radio musi siedzieć w <fieldset>,
+               a wspólne pytanie w <legend>. Dzięki temu czytnik ekranu
+               przy każdej opcji wie, do jakiego pytania należy. -->
+          <fieldset class="pole pole--grupa">
+            <legend class="pole__etykieta">
+              Rodzaj zamówienia <span aria-hidden="true">*</span>
+            </legend>
+
+            <label class="wybor">
+              <input type="radio" name="rodzaj" value="Rzeźba na zamówienie" required>
+              <span>Rzeźba na zamówienie</span>
+            </label>
+
+            <label class="wybor">
+              <input type="radio" name="rodzaj" value="Zakup pracy z wystawy">
+              <span>Zakup pracy z wystawy</span>
+            </label>
+
+            <label class="wybor">
+              <input type="radio" name="rodzaj" value="Inne">
+              <span>Inne</span>
+            </label>
+          </fieldset>
+
+          <div class="pole">
+            <label class="pole__etykieta" for="opis">
+              Opis pomysłu <span aria-hidden="true">*</span>
+            </label>
+            <textarea
+              class="pole__wejscie pole__wejscie--duze"
+              id="opis" name="opis" rows="6"
+              required aria-describedby="opis-opis"></textarea>
+            <p class="pole__opis" id="opis-opis">
+              Dla kogo jest rzeźba, gdzie ma stanąć lub zawisnąć, jaki ma
+              być jej nastrój. Im więcej napiszesz, tym trafniejsza wycena.
+            </p>
+          </div>
+
+          <div class="pole">
+            <label class="pole__etykieta" for="termin">Orientacyjny termin</label>
+            <input
+              class="pole__wejscie"
+              type="text" id="termin" name="termin"
+              aria-describedby="termin-opis">
+            <p class="pole__opis" id="termin-opis">
+              Np. „przed świętami” albo „bez pośpiechu”.
+            </p>
+          </div>
+
+          <!-- Checkbox zgody. Cała etykieta jest klikalna, bo <input>
+               siedzi wewnątrz <label> — na telefonie to różnica między
+               trafianiem w kwadracik a w całą linię tekstu. -->
+          <label class="zgoda">
+            <input type="checkbox" name="zgoda" value="tak" required>
+            <span>
+              Wyrażam zgodę na przetwarzanie moich danych osobowych w celu
+              udzielenia odpowiedzi na zapytanie, zgodnie z
+              <a href="polityka-prywatnosci.html">polityką prywatności</a>.
+              <span aria-hidden="true">*</span>
+            </span>
+          </label>
+
+          <button class="przycisk przycisk--pelny" type="submit">
+            Poproś o wycenę
+          </button>
+
+        </form>
+
+      </div>
+    </section>
+
   </main>
 
   <script src="js/main.js"></script>

@@ -35,11 +35,20 @@ płatności online. Formularz obsługuje Netlify Forms.
 ## Struktura plików
 
 ```
-index.html        strona główna
-css/style.css     wygląd
-js/main.js        interakcje
-images/           zdjęcia rzeźb
+index.html                  strona główna
+dziekujemy.html             po wysłaniu formularza (noindex)
+polityka-prywatnosci.html   szkielet, treść do napisania
+css/style.css               wygląd
+js/main.js                  interakcje
+images/                     zdjęcia rzeźb
 ```
+
+**Nagłówek jest skopiowany do wszystkich trzech stron.** Bez systemu
+budowania nie da się trzymać go w jednym miejscu, więc **zmiana w menu
+albo w przełączniku motywu wymaga poprawki w trzech plikach**.
+
+Na podstronach linki menu mają przedrostek `index.html` (`index.html#wystawa`),
+bo same kotwice prowadziłyby do sekcji, których tam nie ma.
 
 ## Decyzje projektowe
 
@@ -104,7 +113,7 @@ podkreślenie `__` oznacza element należący do bloku.
 | `#wystawa` | gotowa — cztery sale |
 | `#metryka` | gotowa — metryka drewna |
 | `#artystka` | do zrobienia |
-| `#zamowienia` | do zrobienia |
+| `#zamowienia` | gotowa — proces i formularz wyceny |
 
 Menu w nagłówku prowadzi do tych kotwic. **Przy dodawaniu sekcji
 sprawdzić, czy `id` zgadza się z `href` w menu** — pierwotnie menu
@@ -120,6 +129,53 @@ zamiast być kopiowane:
 - `.przycisk` + `.przycisk--pelny` / `.przycisk--obramowany`.
 - `.praca` — zdjęcie pracy z podpisem.
 - `.do-uzupelnienia` — tymczasowa wartość w nawiasach kwadratowych.
+- `.pole` + `.pole__etykieta` / `.pole__wejscie` / `.pole__opis` — pole formularza.
+- `.strona-prosta` — wąska kolumna tekstu na podstronach.
+
+### Formularz i Netlify Forms
+
+Formularz prośby o wycenę (`#zamowienia` w `index.html`) jest zwykłym
+formularzem HTML wysyłanym metodą POST. Nie ma backendu — zgłoszenia
+przechwytują serwery Netlify. Wymaga to trzech rzeczy:
+
+| Element | Rola |
+|---|---|
+| `data-netlify="true"` | po tym atrybucie Netlify rozpoznaje formularz przy wdrożeniu |
+| `<input type="hidden" name="form-name" value="wycena">` | mówi, do którego formularza należy zgłoszenie; bez tego Netlify je odrzuca |
+| `netlify-honeypot="bot-field"` + `.ukryte-pole` | pułapka na boty: pole niewidoczne (`display: none`), wypełnione = zgłoszenie odrzucone po cichu |
+
+`action="/dziekujemy.html"` — przekierowanie po udanym wysłaniu.
+
+**Formularz nie zadziała przy testach lokalnych** (otwarcie pliku z dysku
+ani prosty serwer statyczny). Działa wyłącznie po wdrożeniu na Netlify.
+To nie jest usterka.
+
+Zmiana nazwy formularza albo dodanie pola wymaga ponownego wdrożenia —
+Netlify czyta strukturę formularza z opublikowanego HTML, nie z przeglądarki.
+
+### Walidacja formularza — bez JavaScriptu
+
+Walidacja jest wbudowana w HTML (`required`, `type="email"`). Świadomie
+**nie** podmieniamy komunikatów błędów skryptem.
+
+Konsekwencja do zapamiętania: komunikaty przeglądarki są w języku
+**przeglądarki**, nie strony — `lang="pl"` na to nie wpływa. Dlatego
+treść po polsku niesie własna podpowiedź pod każdym polem
+(`.pole__opis`, powiązana z polem przez `aria-describedby`), widoczna
+od razu i czytana przez czytniki ekranu.
+
+Przy dodawaniu pola: widoczna `<label for>`, `aria-describedby`
+wskazujące na podpowiedź, `autocomplete` i `inputmode` tam, gdzie mają sens.
+
+`font-size` pól to `1rem` (16 px) — **nie zmniejszać**. Poniżej tej
+wartości iOS przybliża stronę przy kliknięciu w pole i nie cofa zmiany.
+
+### Wybór zamiast listy rozwijanej
+
+„Rodzaj zamówienia" to przyciski radio w `<fieldset>` z `<legend>`,
+a nie `<select>`. Powód: trzy opcje widoczne od razu, cała etykieta
+klikalna, obszar dotyku min. 44 px. Pole jest wymagane i żadna opcja
+nie jest zaznaczona domyślnie, żeby nie zafałszować odpowiedzi.
 
 ### Zdjęcia zależne od motywu
 
@@ -219,16 +275,42 @@ wczytywania.
 
 ## Sprawy otwarte
 
+### Blokujące publikację
+
+- **Polityka prywatności do napisania.** `polityka-prywatnosci.html` zawiera
+  wyłącznie `[TREŚĆ DO UZUPEŁNIENIA]`. Formularz zbiera dane osobowe
+  (imię, e-mail, telefon), a zgoda w formularzu linkuje do tej strony —
+  **bez jej treści strona nie może zostać opublikowana.**
+- **Pięć kroków procesu to propozycja.** Treść kroków 01–05 w sekcji
+  `#zamowienia` została napisana na podstawie ogólnego opisu, nie rozmowy
+  z artystką. **Do potwierdzenia z mamą** — szczególnie krok 03 (czy
+  faktycznie wysyłacie zdjęcie drewna i szkic przed wyceną) oraz 04
+  (czy chcecie zobowiązywać się do zdjęć z postępów).
+- **Metryka w sekcji `#metryka` ma wartości zastępcze.** W `index.html`
+  pięć pozycji listy (`Gatunek`, `Znaleziono`, `Czym było`, `Wymiary`,
+  `Dostępność`) ma wpisane nawiasy kwadratowe, np. `[GATUNEK DREWNA]`.
+  **Strona nie może trafić do publikacji z nawiasami.**
+
+**Jak znaleźć wszystkie miejsca do wypełnienia:** wyszukać
+`do-uzupelnienia` w `index.html` i `polityka-prywatnosci.html`.
+Po wpisaniu prawdziwych treści usunąć tę klasę ze znaczników,
+a na końcu regułę `.do-uzupelnienia` ze `style.css`.
+
+### Po wdrożeniu na Netlify
+
+- **Powiadomienia o zgłoszeniach.** Domyślnie zgłoszenia z formularza lądują
+  tylko w panelu Netlify. W ustawieniach (Forms → Form notifications) trzeba
+  wskazać adres e-mail, na który mają przychodzić — inaczej nikt się o nich
+  nie dowie.
+- **Sprawdzić, czy Netlify wykrył formularz.** Zakładka Forms powinna
+  pokazać formularz o nazwie `wycena`. Jeśli go nie ma, Netlify nie znalazł
+  `data-netlify="true"` we wdrożonym HTML.
+
+### Pozostałe
+
 - **Podstrony sal.** Karty w sekcji `#wystawa` prowadzą na razie do `"#"`.
   Do zrobienia: osobne strony cykli (Twarze i formy, Skrzydła, Sacrum,
   Złoto lasu) i podmiana adresów w `index.html`.
-- **Metryka w sekcji `#metryka` ma wartości zastępcze.** W `index.html`
-  pięć pozycji listy (`Gatunek`, `Znaleziono`, `Czym było`, `Wymiary`,
-  `Dostępność`) ma wpisane nawiasy kwadratowe, np. `[GATUNEK DREWNA]`,
-  z klasą `do-uzupelnienia`. **Strona nie może trafić do publikacji
-  z nawiasami.** Przed wypuszczeniem: wyszukać `do-uzupelnienia`
-  w `index.html`, wpisać dane od mamy i usunąć tę klasę (a na koniec
-  regułę `.do-uzupelnienia` ze `style.css`).
 - **Metryka drewna.** Pola `gatunek_drewna`, `skad_drewno`, `wymiary`,
   `rok`, `dostepnosc`, `opis` w `images/prace.json` są puste —
   do uzupełnienia z mamą.

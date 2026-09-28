@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dziękujemy — Sztuka Lasu</title>
+
+  <!-- Ta strona ma sens tylko zaraz po wysłaniu formularza,
+       więc nie ma powodu, żeby trafiała do wyników wyszukiwania. -->
+  <meta name="robots" content="noindex">
+
+  <!-- Ten sam skrypt motywu co na stronie głównej — musi stać w <head>,
+       przed stylami, żeby strona nie mignęła złymi kolorami. -->
+  <script>
+    (function () {
+      try {
+        var zapisany = localStorage.getItem('motyw');
+        var systemowyCiemny = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        var motyw = zapisany || (systemowyCiemny ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', motyw);
+      } catch (blad) {}
+    })();
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400;1,500&family=Manrope:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Nagłówek skopiowany ze strony głównej.
+       UWAGA: linki menu mają przedrostek "index.html", bo kotwice
+       (#wystawa itd.) prowadzą do sekcji, których na tej stronie nie ma. -->
+  <header class="naglowek">
+    <div class="naglowek__wnetrze">
+
+      <a class="logo" href="index.html">Sztuka Lasu</a>
+
+      <nav class="menu" aria-label="Menu główne">
+        <ul>
+          <li><a href="index.html#wystawa">Wystawa</a></li>
+          <li><a href="index.html#metryka">Metryka drewna</a></li>
+          <li><a href="index.html#artystka">Artystka</a></li>
+          <li><a href="index.html#zamowienia">Zamówienia</a></li>
+        </ul>
+      </nav>
+
+      <button
+        class="przelacznik-motywu"
+        type="button"
+        id="przelacznik-motywu"
+        aria-label="Włącz motyw dzienny">
+
+        <svg class="ikona-slonce" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+             aria-hidden="true">
+          <circle cx="12" cy="12" r="4.5"/>
+          <path d="M12 1.5v2.5M12 20v2.5M3.2 3.2l1.8 1.8M19 19l1.8 1.8M1.5 12h2.5M20 12h2.5M3.2 20.8l1.8-1.8M19 5l1.8-1.8"/>
+        </svg>
+
+        <svg class="ikona-ksiezyc" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+             stroke-linejoin="round" aria-hidden="true">
+          <path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11z"/>
+        </svg>
+      </button>
+
+    </div>
+  </header>
+
+  <main class="strona-prosta">
+    <div class="strona-prosta__wnetrze">
+
+      <p class="etykieta">Zamówienia</p>
+
+      <h1 class="strona-prosta__tytul">Dziękujemy za wiadomość</h1>
+
+      <p class="strona-prosta__tekst">
+        Twoja prośba o wycenę dotarła. Odpowiadamy zwykle w ciągu kilku dni —
+        na adres e-mail, który podałeś w formularzu.
+      </p>
+
+      <p class="strona-prosta__tekst">
+        Jeśli zamawiasz rzeźbę, pierwszym krokiem będzie rozmowa o tym,
+        dla kogo ma powstać i gdzie zamieszka.
+      </p>
+
+      <p class="strona-prosta__powrot">
+        <a class="przycisk przycisk--obramowany" href="index.html">
+          Wróć na stronę główną
+        </a>
+      </p>
+
+    </div>
+  </main>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
