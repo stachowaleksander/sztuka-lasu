@@ -15,9 +15,16 @@ i powinien wracać w tekstach, nazewnictwie i tonie.
 
 ### Metryka drewna
 
-Każda rzeźba ma swoją **metrykę drewna**: gatunek drewna oraz pochodzenie
-fragmentu. To element wyróżniający galerię — traktować jak pełnoprawną część
-prezentacji dzieła, nie jak drobny dopisek.
+Każda rzeźba ma swoją **metrykę drewna**. To element wyróżniający galerię —
+traktować jak pełnoprawną część prezentacji dzieła, nie jak drobny dopisek.
+
+Zakres metryki: **Praca, Czym było, Wymiary, Dostępność**.
+
+**Nie dopisywać gatunku drewna ani miejsca znalezienia.** Pierwotnie metryka
+miała oba te pola, ale artystka nie rozpoznaje gatunków i nie chce zdradzać
+miejsc, w których zbiera drewno. Pole `Czym było` (np. „opadła kora”,
+„gałąź po wichurze”) niesie ten sam sens — historię fragmentu sprzed rzeźby —
+bez obiecywania wiedzy, której nie ma.
 
 ### Zamówienia
 
@@ -284,18 +291,22 @@ wczytywania.
 
 - **Usunąć `<meta name="robots" content="noindex">`.** Znacznik jest
   w `index.html` i `polityka-prywatnosci.html`, bo strona stoi na adresie
-  testowym z lorem ipsum i wartościami w nawiasach. Trzyma ją poza Google.
+  testowym i ma jeszcze wartości w nawiasach kwadratowych. Trzyma ją
+  poza Google.
   **Przy starcie na sztukalasu.pl usunąć go z obu tych plików.**
   W `dziekujemy.html` `noindex` **zostaje na stałe** — ta strona ma sens
   tylko zaraz po wysłaniu formularza i nie ma po co trafiać do wyszukiwarki.
-- **Sekcja `#artystka` to lorem ipsum.** Imię i nazwisko, dwa akapity,
-  cytat i portret (`[ZDJĘCIE ARTYSTKI]`) są zastępcze — do napisania
-  i sfotografowania razem z mamą. Portret ma proporcje 4:5, więc zdjęcie
-  wejdzie w gotowe miejsce bez zmian w układzie.
-- **Dane kontaktowe w stopce są zastępcze.** `[IMIĘ I NAZWISKO]`,
-  `[MIEJSCOWOŚĆ]`, `[ADRES E-MAIL]`, `[TELEFON]` oraz link do Instagrama
-  prowadzący do `"#"`. Uwaga: stopka stoi w trzech plikach — poprawić
-  we wszystkich.
+- **Cytat artystki czeka na akceptację.** „Las niczego nie wyrzuca. Ja tylko
+  pomagam mu opowiedzieć jeszcze jedną historię." — zdanie zostało napisane
+  na podstawie rozmowy, nie zacytowane. **Do zatwierdzenia przez Natalię**
+  albo do zastąpienia jej własnymi słowami. Reszta sekcji `#artystka`
+  (biogram, dwa akapity) to już prawdziwa treść.
+- **Portret artystki.** W sekcji `#artystka` jest `[ZDJĘCIE ARTYSTKI]` —
+  szary prostokąt o proporcjach 4:5. Zdjęcie wejdzie w gotowe miejsce
+  bez zmian w układzie.
+- **Dane kontaktowe w stopce są zastępcze.** `[MIEJSCOWOŚĆ]`,
+  `[ADRES E-MAIL]`, `[TELEFON]` oraz link do Instagrama prowadzący do `"#"`.
+  Uwaga: stopka stoi w trzech plikach — poprawić we wszystkich.
 - **Polityka prywatności do napisania.** `polityka-prywatnosci.html` zawiera
   wyłącznie `[TREŚĆ DO UZUPEŁNIENIA]`. Formularz zbiera dane osobowe
   (imię, e-mail, telefon), a zgoda w formularzu linkuje do tej strony —
@@ -306,9 +317,8 @@ wczytywania.
   faktycznie wysyłacie zdjęcie drewna i szkic przed wyceną) oraz 04
   (czy chcecie zobowiązywać się do zdjęć z postępów).
 - **Metryka w sekcji `#metryka` ma wartości zastępcze.** W `index.html`
-  pięć pozycji listy (`Gatunek`, `Znaleziono`, `Czym było`, `Wymiary`,
-  `Dostępność`) ma wpisane nawiasy kwadratowe, np. `[GATUNEK DREWNA]`.
-  **Strona nie może trafić do publikacji z nawiasami.**
+  trzy pozycje listy (`Czym było`, `Wymiary`, `Dostępność`) mają wpisane
+  nawiasy kwadratowe. **Strona nie może trafić do publikacji z nawiasami.**
 
 **Jak znaleźć wszystkie miejsca do wypełnienia:** wyszukać
 `do-uzupelnienia` we wszystkich trzech plikach HTML (stopka z wartościami
@@ -331,9 +341,9 @@ a na końcu regułę `.do-uzupelnienia` ze `style.css`.
 - **Podstrony sal.** Karty w sekcji `#wystawa` prowadzą na razie do `"#"`.
   Do zrobienia: osobne strony cykli (Twarze i formy, Skrzydła, Sacrum,
   Złoto lasu) i podmiana adresów w `index.html`.
-- **Metryka drewna.** Pola `gatunek_drewna`, `skad_drewno`, `wymiary`,
-  `rok`, `dostepnosc`, `opis` w `images/prace.json` są puste —
-  do uzupełnienia z mamą.
+- **Dane prac w `prace.json`.** Pola `czym_bylo`, `wymiary`, `rok`,
+  `dostepnosc`, `opis` są puste we wszystkich 17 wpisach —
+  do uzupełnienia z mamą. Pól `gatunek_drewna` i `skad_drewno` już nie ma.
 - **Tytuły prac.** W `prace.json` są tytuły robocze, do zastąpienia
   prawdziwymi.
 - **Kadrowanie miniatur.** Ramka 4:5 przycina smukłe prace o ok. 30–33%
